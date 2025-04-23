@@ -22,7 +22,7 @@
   const cssLink = document.createElement("link");
   cssLink.rel = "stylesheet";
   cssLink.type = "text/css";
-  cssLink.href = "http://192.168.4.193/react_app/react-toolbox-widget.bundle.css";
+  cssLink.href = "https://rictestapp.netlify.app/react-toolbox-widget.bundle.css";
   container.appendChild(cssLink);
 
   // Create container for React app
@@ -33,7 +33,7 @@
 
   // Load React widget script immediately
   const script = document.createElement("script");
-  script.src = "http://192.168.4.193/react_app/react-toolbox-widget.bundle.iife.js";
+  script.src = "https://rictestapp.netlify.app/react-toolbox-widget.bundle.iife.js";
   script.onload = () => {
     console.log("✅ Widget script loaded");
     if (typeof window.renderToolboxWidget === "function") {
