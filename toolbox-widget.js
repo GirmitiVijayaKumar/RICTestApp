@@ -1,0 +1,49 @@
+(function () {
+  const customerId = document.currentScript.getAttribute("data-customer-id");
+
+  const widgetRoot = document.createElement("div");
+  widgetRoot.id = "toolbox-widget-root";
+  document.body.appendChild(widgetRoot);
+
+  const shadow = widgetRoot.attachShadow({ mode: "open" });
+
+  // Container to hold the app
+  const container = document.createElement("div");
+  container.style.position = "fixed";
+  container.style.bottom = "20px";
+  // container.style.right = "20px";
+  container.style.top = "5px";
+  container.style.width = "100%";
+  container.style.height = "100%";
+  container.style.zIndex = "99999";
+  shadow.appendChild(container);
+
+  // Inject CSS into Shadow DOM
+  const cssLink = document.createElement("link");
+  cssLink.rel = "stylesheet";
+  cssLink.type = "text/css";
+  cssLink.href = "http://192.168.4.193/react_app/react-toolbox-widget.bundle.css";
+  container.appendChild(cssLink);
+
+  // Create container for React app
+  const appContainer = document.createElement("div");
+  appContainer.id = "toolbox-app";
+  appContainer.style.width = "100%";
+  container.appendChild(appContainer);
+
+  // Load React widget script immediately
+  const script = document.createElement("script");
+  script.src = "http://192.168.4.193/react_app/react-toolbox-widget.bundle.iife.js";
+  script.onload = () => {
+    console.log("✅ Widget script loaded");
+    if (typeof window.renderToolboxWidget === "function") {
+      window.renderToolboxWidget(appContainer, { customerId });
+    } else {
+      console.error("❌ renderToolboxWidget not available on window.");
+    }
+  };
+  script.onerror = (err) => {
+    console.error("❌ Failed to load widget script", err);
+  };
+  container.appendChild(script);
+})();
